@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KEM Ý SƯƠNG | Design System Starter</title>
+  <meta name="description" content="Bộ component chuẩn hóa màu sắc, khoảng cách, button, card và các pattern giao diện cho nhiều loại website." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700;800&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ds-color-brand: #0f766e;
+      --ds-color-brand-strong: #115e59;
+      --ds-color-brand-soft: #ccfbf1;
+      --ds-color-bg: #f5efe6;
+      --ds-color-surface: rgba(255, 255, 255, 0.72);
+      --ds-color-surface-strong: #f3e5d0;
+      --ds-color-border: rgba(30, 41, 59, 0.12);
+      --ds-color-text: #172033;
+      --ds-color-text-soft: #526077;
+      --ds-color-success: #15803d;
+      --ds-color-warning: #c2410c;
+      --ds-color-danger: #b91c1c;
+      --ds-color-info: #1d4ed8;
+      --ds-shadow-lg: 0 24px 60px rgba(23, 32, 51, 0.12);
+      --ds-shadow-md: 0 12px 30px rgba(23, 32, 51, 0.08);
+      --ds-radius-sm: 14px;
+      --ds-radius-md: 22px;
+      --ds-radius-lg: 32px;
+      --ds-space-xs: 4px;
+      --ds-space-sm: 8px;
+      --ds-space-md: 16px;
+      --ds-space-lg: 24px;
+      --ds-space-xl: 32px;
+      --ds-space-2xl: 48px;
+      --ds-shell-width: min(1120px, calc(100vw - 32px));
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Be Vietnam Pro", sans-serif;
+      color: var(--ds-color-text);
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.16), transparent 28%),
+        radial-gradient(circle at right 15%, rgba(194, 65, 12, 0.18), transparent 20%),
+        linear-gradient(180deg, #fff9f0 0%, #f8f1e7 42%, #f2ece3 100%);
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(circle at center, black 45%, transparent 100%);
+      opacity: 0.4;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .ds-shell {
+      width: var(--ds-shell-width);
+      margin: 0 auto;
+    }
+
+    .ds-section {
+      padding: 40px 0;
+    }
+
+    main.ds-section {
+      padding: 32px 0 72px;
+    }
+
+    .ds-section--tight {
+      padding: 0;
+    }
+
+    .ds-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--ds-space-md);
+    }
+
+    .ds-stack[data-gap="lg"] {
+      gap: var(--ds-space-lg);
+    }
+
+    .ds-stack[data-gap="xl"] {
+      gap: var(--ds-space-xl);
+    }
+
+    .ds-panel,
+    .ds-card,
+    .ds-pattern,
+    .ds-token,
+    .ds-space-item,
+    .ds-code {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: var(--ds-color-surface);
+      border: 1px solid var(--ds-color-border);
+      box-shadow: var(--ds-shadow-md);
+    }
+
+    .ds-panel {
+      border-radius: var(--ds-radius-lg);
+      padding: clamp(24px, 4vw, 40px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ds-panel--hero::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -60px;
+      top: -60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(15, 118, 110, 0.28), transparent 70%);
+    }
+
+    .ds-section__header {
+      display: grid;
+      gap: 10px;
+      max-width: 760px;
+    }
+
+    .ds-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid rgba(15, 118, 110, 0.16);
+      color: var(--ds-color-brand-strong);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .ds-title {
+      margin: 0;
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-size: clamp(2rem, 5vw, 4.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+
+    h2.ds-title,
+    h3.ds-card__title {
+      font-size: clamp(1.45rem, 2vw, 2.2rem);
+      line-height: 1.05;
+    }
+
+    .ds-lead,
+    .ds-note,
+    .ds-card__body,
+    .ds-card__meta,
+    .ds-pattern__label,
+    .u-text-subtle {
+      margin: 0;
+      color: var(--ds-color-text-soft);
+      line-height: 1.7;
+    }
+
+    .ds-note {
+      padding-top: 8px;
+      max-width: 920px;
+    }
+
+    .ds-actions,
+    .ds-button-row,
+    .ds-card__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: 999px;
+      padding: 14px 22px;
+      border: 1px solid transparent;
+      transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease;
+      cursor: pointer;
+      overflow: hidden;
+      isolation: isolate;
+      font-weight: 600;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(23, 32, 51, 0.14);
+      outline: none;
+    }
+
+    .btn-sm {
+      padding: 10px 16px;
+      font-size: 14px;
+    }
+
+    .btn-solid {
+      background: linear-gradient(135deg, var(--ds-color-brand) 0%, #14b8a6 100%);
+      color: white;
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.72);
+      border-color: rgba(15, 118, 110, 0.2);
+      color: var(--ds-color-brand-strong);
+    }
+
+    .btn-ghost {
+      background: rgba(23, 32, 51, 0.05);
+      color: var(--ds-color-text);
+    }
+
+    .btn.is-copied {
+      background: linear-gradient(135deg, var(--ds-color-success), #22c55e);
+      color: white;
+      border-color: transparent;
+    }
+
+    .ds-token-grid,
+    .ds-button-showcase,
+    .ds-card-showcase,
+    .ds-pattern-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+
+    .ds-token,
+    .ds-card,
+    .ds-pattern {
+      border-radius: var(--ds-radius-md);
+      padding: 22px;
+      min-width: 0;
+    }
+
+    .ds-token {
+      grid-column: span 3;
+      display: grid;
+      gap: 10px;
+    }
+
+    .ds-token__swatch {
+      height: 92px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.48);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .ds-spacing-scale {
+      display: grid;
+      gap: 14px;
+    }
+
+    .ds-space-item {
+      display: grid;
+      grid-template-columns: 72px 1fr 80px;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      border-radius: 18px;
+    }
+
+    .ds-space-label,
+    .ds-space-value {
+      font-weight: 700;
+    }
+
+    .ds-space-bar {
+      height: 14px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--ds-color-brand), #2dd4bf);
+    }
+
+    .ds-card,
+    .ds-pattern {
+      position: relative;
+      transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+    }
+
+    .ds-card:hover,
+    .ds-pattern:hover,
+    .ds-token:hover,
+    .ds-space-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--ds-shadow-lg);
+      border-color: rgba(15, 118, 110, 0.18);
+    }
+
+    .ds-button-showcase .ds-card,
+    .ds-card-showcase .ds-card,
+    .ds-pattern-grid .ds-pattern {
+      grid-column: span 4;
+    }
+
+    .ds-badge {
+      width: fit-content;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.14);
+      color: var(--ds-color-brand-strong);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .ds-badge[data-tone="neutral"] {
+      background: rgba(82, 96, 119, 0.12);
+      color: #334155;
+    }
+
+    .ds-badge[data-tone="warning"] {
+      background: rgba(194, 65, 12, 0.12);
+      color: var(--ds-color-warning);
+    }
+
+    .ds-badge[data-tone="success"] {
+      background: rgba(21, 128, 61, 0.12);
+      color: var(--ds-color-success);
+    }
+
+    .ds-card__title {
+      margin: 0;
+    }
+
+    .ds-card__media {
+      min-height: 180px;
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(15, 118, 110, 0.86), rgba(20, 184, 166, 0.26)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.4), transparent);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ds-card__media::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent);
+    }
+
+    .ds-kpis {
+      display: grid;
+      gap: 12px;
+    }
+
+    .ds-metric {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(23, 32, 51, 0.04);
+      display: grid;
+      gap: 6px;
+    }
+
+    .ds-metric__value {
+      font-family: "Sora", sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .ds-metric__label {
+      color: var(--ds-color-text-soft);
+      font-size: 0.95rem;
+    }
+
+    .ds-pattern__preview {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(243, 229, 208, 0.76));
+      border-radius: 20px;
+      border: 1px solid rgba(15, 118, 110, 0.12);
+      padding: 18px;
+      min-height: 240px;
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+
+    .ds-pattern__preview > * {
+      height: 100%;
+    }
+
+    .ds-pattern__pill,
+    .ds-pattern__line,
+    .ds-pattern__card,
+    .ds-pattern__chart,
+    .ds-pattern__nav,
+    .ds-pattern__sidebar,
+    .ds-pattern__editorial-hero,
+    .ds-pattern__block,
+    .ds-pattern__auth-card {
+      background: linear-gradient(135deg, rgba(15, 118, 110, 0.18), rgba(23, 32, 51, 0.06));
+      border-radius: 14px;
+    }
+
+    .ds-pattern__pill {
+      display: block;
+      width: 80px;
+      height: 12px;
+      margin-bottom: 16px;
+    }
+
+    .ds-pattern__hero,
+    .ds-pattern__dashboard,
+    .ds-pattern__dashboard-row,
+    .ds-pattern__editorial-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .ds-pattern__hero {
+      grid-template-columns: 1.35fr 1fr;
+      margin-bottom: 14px;
+    }
+
+    .ds-pattern__line {
+      display: block;
+      height: 12px;
+    }
+
+    .ds-pattern__line[data-size="lg"] {
+      width: 78%;
+      height: 18px;
+    }
+
+    .ds-pattern__line[data-size="sm"] {
+      width: 52%;
+    }
+
+    .ds-pattern__cards,
+    .ds-pattern__dashboard-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .ds-pattern__card {
+      min-height: 72px;
+    }
+
+    .ds-pattern__dashboard {
+      grid-template-columns: 70px 1fr;
+      min-height: 200px;
+    }
+
+    .ds-pattern__dashboard-main {
+      display: grid;
+      gap: 12px;
+    }
+
+    .ds-pattern__sidebar,
+    .ds-pattern__nav {
+      min-height: 100%;
+    }
+
+    .ds-pattern__nav {
+      height: 18px;
+      min-height: auto;
+      width: 52%;
+    }
+
+    .ds-pattern__chart {
+      min-height: 92px;
+    }
+
+    .ds-pattern__editorial {
+      display: grid;
+      gap: 14px;
+    }
+
+    .ds-pattern__editorial-hero {
+      min-height: 104px;
+    }
+
+    .ds-pattern__editorial-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ds-pattern__block {
+      min-height: 84px;
+    }
+
+    .ds-pattern__auth {
+      display: grid;
+      place-items: center;
+      min-height: 204px;
+    }
+
+    .ds-pattern__auth-card {
+      width: min(100%, 220px);
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .ds-code-wrap {
+      position: relative;
+    }
+
+    .ds-copy-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 1;
+    }
+
+    .ds-code {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      border-radius: var(--ds-radius-md);
+      padding: 24px;
+      font-family: "Sora", monospace;
+      font-size: 0.92rem;
+      line-height: 1.8;
+      white-space: pre;
+      cursor: pointer;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(243, 229, 208, 0.9)),
+        var(--ds-color-surface);
+    }
+
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 500ms ease, transform 500ms ease;
+    }
+
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .ds-toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      padding: 14px 18px;
+      border-radius: 16px;
+      background: rgba(23, 32, 51, 0.92);
+      color: white;
+      box-shadow: var(--ds-shadow-lg);
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: opacity 180ms ease, transform 180ms ease;
+      z-index: 50;
+    }
+
+    .ds-toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .btn__ripple {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.45);
+      transform: translate(-50%, -50%) scale(0);
+      animation: ripple 550ms ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes ripple {
+      to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(14);
+      }
+    }
+
+    @media (max-width: 960px) {
+      .ds-token,
+      .ds-button-showcase .ds-card,
+      .ds-card-showcase .ds-card,
+      .ds-pattern-grid .ds-pattern {
+        grid-column: span 6;
+      }
+    }
+
+    @media (max-width: 720px) {
+      :root {
+        --ds-shell-width: min(100vw - 20px, 1120px);
+      }
+
+      main.ds-section {
+        padding-top: 20px;
+      }
+
+      .ds-token-grid,
+      .ds-button-showcase,
+      .ds-card-showcase,
+      .ds-pattern-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+      }
+
+      .ds-token,
+      .ds-button-showcase .ds-card,
+      .ds-card-showcase .ds-card,
+      .ds-pattern-grid .ds-pattern {
+        grid-column: 1 / -1;
+      }
+
+      .ds-space-item {
+        grid-template-columns: 1fr;
+      }
+
+      .ds-pattern__hero,
+      .ds-pattern__dashboard,
+      .ds-pattern__cards,
+      .ds-pattern__dashboard-row,
+      .ds-pattern__editorial-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ds-copy-btn {
+        position: static;
+        margin-bottom: 12px;
+      }
+
+      .ds-code {
+        padding: 18px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="ds-section">
+    <div class="ds-shell ds-stack" data-gap="xl">
+      <section class="ds-panel ds-panel--hero ds-stack" data-gap="lg">
+        <span class="ds-eyebrow">Bộ Component</span>
+        <div class="ds-section__header">
+          <h1 class="ds-title">Chuẩn hóa màu sắc, khoảng cách, button, card và UI patterns</h1>
+          <p class="ds-lead">Trang này chỉ tập trung vào những phần có tính tái sử dụng cao nhất cho nhiều loại website: token màu, spacing scale, button system, card system và các pattern bố cục phổ biến.</p>
+        </div>
+        <div class="ds-actions">
+          <a class="btn btn-solid" href="docs/design-system-starter.md">Xem guideline</a>
+          <a class="btn btn-outline" href="index.html">Quay lại trang chính</a>
+        </div>
+        <p class="ds-note">Phạm vi cố ý được giới hạn để bộ component này dễ mang sang landing page, e-commerce, dashboard, blog, trang giới thiệu dịch vụ hoặc trang đăng nhập mà không bị lệ thuộc business logic của một dự án cụ thể.</p>
+      </section>
+
+      <section class="ds-section ds-section--tight">
+        <div class="ds-section__header">
+          <span class="ds-eyebrow">Colors</span>
+          <h2 class="ds-title">Hệ màu semantic thay vì hard-code</h2>
+          <p class="ds-lead">Khi đổi brand hoặc mở rộng theme, component chỉ cần dùng token semantic là đủ. Các màu bên dưới đại diện cho vai trò trong giao diện, không gắn chặt với một màn hình riêng lẻ.</p>
+        </div>
+        <div class="ds-token-grid">
+          <article class="ds-token">
+            <div class="ds-token__swatch" style="background: var(--ds-color-brand);"></div>
+            <strong>Brand Primary</strong>
+            <span class="u-text-subtle">CTA, focus, active state</span>
+          </article>
+          <article class="ds-token">
+            <div class="ds-token__swatch" style="background: var(--ds-color-brand-soft);"></div>
+            <strong>Brand Soft</strong>
+            <span class="u-text-subtle">badge nền, highlight nhẹ</span>
+          </article>
+          <article class="ds-token">
+            <div class="ds-token__swatch" style="background: var(--ds-color-surface);"></div>
+            <strong>Surface</strong>
+            <span class="u-text-subtle">card nền mặc định</span>
+          </article>
+          <article class="ds-token">
+            <div class="ds-token__swatch" style="background: var(--ds-color-surface-strong);"></div>
+            <strong>Surface Strong</strong>
+            <span class="u-text-subtle">panel phụ, preview block</span>
+          </article>
+          <article class="ds-token">
+            <div class="ds-token__swatch" style="background: color-mix(in srgb, var(--ds-color-success) 24%, white);"></div>
+            <strong>Success</strong>
+            <span class="u-text-subtle">trạng thái thành công</span>
+          </article>
+          <article class="ds-token">
+            <div class="ds-token__swatch" style="background: color-mix(in srgb, var(--ds-color-warning) 24%, white);"></div>
+            <strong>Warning</strong>
+            <span class="u-text-subtle">cảnh báo mềm</span>
+          </article>
+          <article class="ds-token">
+            <div class="ds-token__swatch" style="background: color-mix(in srgb, var(--ds-color-danger) 20%, white);"></div>
+            <strong>Danger</strong>
+            <span class="u-text-subtle">lỗi, hủy, destructive</span>
+          </article>
+          <article class="ds-token">
+            <div class="ds-token__swatch" style="background: color-mix(in srgb, var(--ds-color-info) 22%, white);"></div>
+            <strong>Info</strong>
+            <span class="u-text-subtle">thông báo, trợ giúp</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="ds-section ds-section--tight">
+        <div class="ds-section__header">
+          <span class="ds-eyebrow">Spacing</span>
+          <h2 class="ds-title">Một thang khoảng cách thống nhất cho toàn bộ hệ UI</h2>
+          <p class="ds-lead">Spacing scale nên đủ ít để nhớ, đủ nhiều để ráp layout mượt. Những giá trị dưới đây bao phủ phần lớn nhu cầu cho mobile card, desktop section, button group và dashboard grid.</p>
+        </div>
+        <div class="ds-spacing-scale">
+          <article class="ds-space-item">
+            <span class="ds-space-label">XS</span>
+            <div class="ds-space-bar" style="width: var(--ds-space-xs); min-width: var(--ds-space-xs);"></div>
+            <span class="ds-space-value">4px</span>
+          </article>
+          <article class="ds-space-item">
+            <span class="ds-space-label">SM</span>
+            <div class="ds-space-bar" style="width: var(--ds-space-sm); min-width: var(--ds-space-sm);"></div>
+            <span class="ds-space-value">8px</span>
+          </article>
+          <article class="ds-space-item">
+            <span class="ds-space-label">MD</span>
+            <div class="ds-space-bar" style="width: var(--ds-space-md); min-width: var(--ds-space-md);"></div>
+            <span class="ds-space-value">16px</span>
+          </article>
+          <article class="ds-space-item">
+            <span class="ds-space-label">LG</span>
+            <div class="ds-space-bar" style="width: var(--ds-space-lg); min-width: var(--ds-space-lg);"></div>
+            <span class="ds-space-value">24px</span>
+          </article>
+          <article class="ds-space-item">
+            <span class="ds-space-label">XL</span>
+            <div class="ds-space-bar" style="width: var(--ds-space-xl); min-width: var(--ds-space-xl);"></div>
+            <span class="ds-space-value">32px</span>
+          </article>
+          <article class="ds-space-item">
+            <span class="ds-space-label">2XL</span>
+            <div class="ds-space-bar" style="width: var(--ds-space-2xl); min-width: var(--ds-space-2xl);"></div>
+            <span class="ds-space-value">48px</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="ds-section ds-section--tight">
+        <div class="ds-section__header">
+          <span class="ds-eyebrow">Buttons</span>
+          <h2 class="ds-title">Button system theo ngữ cảnh hành động</h2>
+          <p class="ds-lead">Button không chỉ khác nhau ở màu, mà còn ở mức ưu tiên. Bộ dưới đây đủ cho hầu hết website marketing, bán hàng, quản trị và luồng xác thực.</p>
+        </div>
+        <div class="ds-button-showcase">
+          <article class="ds-card ds-stack">
+            <span class="ds-badge">Primary CTA</span>
+            <h3 class="ds-card__title">Dành cho hành động chính</h3>
+            <div class="ds-button-row">
+              <button class="btn btn-solid" type="button">Bắt đầu ngay</button>
+              <button class="btn btn-solid btn-sm" type="button">Mua ngay</button>
+            </div>
+            <span class="ds-card__meta">Dùng cho hero, checkout, onboarding, submit quan trọng.</span>
+          </article>
+          <article class="ds-card ds-stack">
+            <span class="ds-badge" data-tone="neutral">Secondary</span>
+            <h3 class="ds-card__title">Dành cho hành động phụ</h3>
+            <div class="ds-button-row">
+              <button class="btn btn-outline" type="button">Xem chi tiết</button>
+              <button class="btn btn-outline btn-sm" type="button">So sánh</button>
+            </div>
+            <span class="ds-card__meta">Dùng khi cần giữ focus cho CTA chính nhưng vẫn có đường dẫn phụ.</span>
+          </article>
+          <article class="ds-card ds-stack">
+            <span class="ds-badge" data-tone="warning">Tertiary</span>
+            <h3 class="ds-card__title">Dành cho utility action</h3>
+            <div class="ds-button-row">
+              <button class="btn btn-ghost" type="button">Lưu nháp</button>
+              <button class="btn btn-ghost btn-sm" type="button">Thử lại</button>
+            </div>
+            <span class="ds-card__meta">Phù hợp với filter, toolbar, panel action hoặc thao tác không quá quan trọng.</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="ds-section ds-section--tight">
+        <div class="ds-section__header">
+          <span class="ds-eyebrow">Cards</span>
+          <h2 class="ds-title">Card system cho nhiều loại nội dung</h2>
+          <p class="ds-lead">Một khung card tốt có thể tái dùng cho product, article, pricing, testimonial, service highlight hoặc dashboard summary. Chỉ cần thay nội dung và số lượng actions.</p>
+        </div>
+        <div class="ds-card-showcase">
+          <article class="ds-card ds-stack">
+            <div class="ds-card__media"></div>
+            <span class="ds-badge">E-commerce</span>
+            <h3 class="ds-card__title">Product card</h3>
+            <p class="ds-card__body">Có media, title, meta, pricing zone và action nhanh. Dùng cho shop, marketplace, food delivery hoặc booking item.</p>
+            <div class="ds-card__actions">
+              <button class="btn btn-solid btn-sm" type="button">Thêm vào giỏ</button>
+              <button class="btn btn-outline btn-sm" type="button">Xem nhanh</button>
+            </div>
+          </article>
+          <article class="ds-card ds-stack">
+            <span class="ds-badge" data-tone="success">Content</span>
+            <h3 class="ds-card__title">Editorial / article card</h3>
+            <p class="ds-card__body">Tập trung hierarchy chữ, tag, mô tả ngắn và CTA đọc tiếp. Dùng cho blog, news hub, knowledge base, portfolio.</p>
+            <span class="ds-card__meta">Ưu tiên khoảng trắng và readability hơn nút hành động dày đặc.</span>
+          </article>
+          <article class="ds-card ds-stack">
+            <span class="ds-badge" data-tone="warning">SaaS</span>
+            <h3 class="ds-card__title">Metric / feature card</h3>
+            <p class="ds-card__body">Hiển thị KPI, trạng thái, feature list hoặc quick insight. Thích hợp cho dashboard, admin console, internal tools.</p>
+            <div class="ds-kpis">
+              <article class="ds-metric">
+                <span class="ds-metric__value">24%</span>
+                <span class="ds-metric__label">Conversion uplift</span>
+              </article>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="ds-section ds-section--tight">
+        <div class="ds-section__header">
+          <span class="ds-eyebrow">Patterns</span>
+          <h2 class="ds-title">Pattern giao diện cho nhiều kiểu website</h2>
+          <p class="ds-lead">Dưới đây là các khung giao diện mẫu để team map nhanh sang bài toán thực tế. Mỗi pattern chỉ là skeleton thị giác, đủ để định hướng cấu trúc trước khi đổ nội dung thật.</p>
+        </div>
+        <div class="ds-pattern-grid">
+          <article class="ds-pattern ds-card">
+            <div class="ds-pattern__preview">
+              <span class="ds-pattern__pill"></span>
+              <div class="ds-pattern__hero">
+                <div class="ds-stack">
+                  <span class="ds-pattern__line" data-size="lg"></span>
+                  <span class="ds-pattern__line"></span>
+                  <span class="ds-pattern__line" data-size="sm"></span>
+                </div>
+                <div></div>
+              </div>
+              <div class="ds-pattern__cards">
+                <div class="ds-pattern__card"></div>
+                <div class="ds-pattern__card"></div>
+                <div class="ds-pattern__card"></div>
+              </div>
+            </div>
+            <h3 class="ds-card__title">Landing page / brand site</h3>
+            <p class="ds-pattern__label">Hero rõ CTA, social proof và các content block nổi bật.</p>
+          </article>
+
+          <article class="ds-pattern ds-card">
+            <div class="ds-pattern__preview">
+              <div class="ds-pattern__dashboard">
+                <div class="ds-pattern__sidebar"></div>
+                <div class="ds-pattern__dashboard-main">
+                  <span class="ds-pattern__nav"></span>
+                  <div class="ds-pattern__dashboard-row">
+                    <div class="ds-pattern__card"></div>
+                    <div class="ds-pattern__card"></div>
+                    <div class="ds-pattern__card"></div>
+                  </div>
+                  <div class="ds-pattern__chart"></div>
+                </div>
+              </div>
+            </div>
+            <h3 class="ds-card__title">Dashboard / SaaS</h3>
+            <p class="ds-pattern__label">Sidebar, top filter, KPI row và khối biểu đồ hoặc activity.</p>
+          </article>
+
+          <article class="ds-pattern ds-card">
+            <div class="ds-pattern__preview">
+              <div class="ds-pattern__editorial">
+                <div class="ds-pattern__editorial-hero"></div>
+                <div class="ds-pattern__editorial-grid">
+                  <div class="ds-pattern__block"></div>
+                  <div class="ds-pattern__block"></div>
+                </div>
+              </div>
+            </div>
+            <h3 class="ds-card__title">Blog / editorial / media</h3>
+            <p class="ds-pattern__label">Ưu tiên content hierarchy, ảnh bìa lớn và grid bài viết phụ.</p>
+          </article>
+
+          <article class="ds-pattern ds-card">
+            <div class="ds-pattern__preview">
+              <div class="ds-pattern__auth">
+                <div class="ds-pattern__auth-card">
+                  <span class="ds-pattern__line" data-size="lg"></span>
+                  <span class="ds-pattern__line"></span>
+                  <div class="ds-pattern__block"></div>
+                </div>
+              </div>
+            </div>
+            <h3 class="ds-card__title">Auth / onboarding / portal</h3>
+            <p class="ds-pattern__label">Một khối trung tâm gọn, rõ task chính, dễ scale cho sign-in hoặc setup flow.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="ds-section ds-section--tight">
+        <div class="ds-section__header">
+          <span class="ds-eyebrow">Starter Snippet</span>
+          <h2 class="ds-title">Mẫu section để tái dùng nhanh</h2>
+        </div>
+        <div class="ds-code-wrap">
+          <button class="btn btn-outline btn-sm ds-copy-btn" type="button" data-copy-target=".ds-code">Copy snippet</button>
+          <code class="ds-code">&lt;section class="ds-section"&gt;
+  &lt;div class="ds-shell ds-stack" data-gap="xl"&gt;
+    &lt;div class="ds-section__header"&gt;
+      &lt;span class="ds-eyebrow"&gt;Cards&lt;/span&gt;
+      &lt;h2 class="ds-title"&gt;Card system cho website của bạn&lt;/h2&gt;
+      &lt;p class="ds-lead"&gt;Mô tả ngắn cho nhóm component hoặc pattern.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="ds-grid ds-grid--cards"&gt;
+      &lt;article class="ds-card ds-stack"&gt;...&lt;/article&gt;
+      &lt;article class="ds-card ds-stack"&gt;...&lt;/article&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code>
+        </div>
+      </section>
+    </div>
+  </main>
+  <div class="ds-toast" aria-live="polite" aria-atomic="true"></div>
+  <script>
+    (() => {
+      const toast = document.querySelector('.ds-toast');
+      const copyButton = document.querySelector('[data-copy-target]');
+      const copyTarget = copyButton ? document.querySelector(copyButton.dataset.copyTarget) : null;
+      const interactiveButtons = document.querySelectorAll('.btn');
+      const sections = document.querySelectorAll('.ds-panel, .ds-section, .ds-card, .ds-token, .ds-space-item, .ds-pattern');
+      let toastTimer;
+
+      const showToast = (message) => {
+        if (!toast) return;
+        window.clearTimeout(toastTimer);
+        toast.textContent = message;
+        toast.classList.add('is-visible');
+        toastTimer = window.setTimeout(() => {
+          toast.classList.remove('is-visible');
+        }, 1800);
+      };
+
+      const setCopiedState = (button, copied) => {
+        if (!button) return;
+        button.classList.toggle('is-copied', copied);
+        button.textContent = copied ? 'Copied' : 'Copy snippet';
+      };
+
+      if (copyButton && copyTarget) {
+        const copySnippet = async () => {
+          try {
+            await navigator.clipboard.writeText(copyTarget.textContent);
+            setCopiedState(copyButton, true);
+            showToast('Snippet copied to clipboard');
+            window.setTimeout(() => setCopiedState(copyButton, false), 1800);
+          } catch (error) {
+            showToast('Clipboard blocked in this browser');
+          }
+        };
+
+        copyButton.addEventListener('click', copySnippet);
+        copyTarget.addEventListener('click', copySnippet);
+      }
+
+      interactiveButtons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+          const ripple = document.createElement('span');
+          const rect = button.getBoundingClientRect();
+          ripple.className = 'btn__ripple';
+          ripple.style.left = `${event.clientX - rect.left}px`;
+          ripple.style.top = `${event.clientY - rect.top}px`;
+          button.appendChild(ripple);
+          window.setTimeout(() => ripple.remove(), 550);
+
+          if (!button.matches('.ds-copy-btn')) {
+            const label = button.textContent.trim();
+            showToast(`Demo action: ${label}`);
+          }
+        });
+      });
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.16 });
+
+        sections.forEach((section, index) => {
+          section.classList.add('reveal-on-scroll');
+          section.style.transitionDelay = `${Math.min(index * 35, 280)}ms`;
+          observer.observe(section);
+        });
+      } else {
+        sections.forEach((section) => section.classList.add('is-visible'));
+      }
+    })();
+  </script>
+</body>
+</html>
